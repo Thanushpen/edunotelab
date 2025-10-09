@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 import DOMPurify from 'dompurify';
-import SplitPane from 'react-split-pane';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { debounce } from 'lodash';
 
 const getInitialData = () => {
@@ -132,7 +132,6 @@ function App() {
   const [targetLang, setTargetLang] = useState('fr');
   const [allowScripts, setAllowScripts] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [splitSize, setSplitSize] = useState('50%');
   const [editorTheme, setEditorTheme] = useState('vs-dark');
 
   const debouncedSave = useMemo(
@@ -412,7 +411,6 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
-  // 🤖 AI CONTEXT EXPORT - Full study snapshot for AI understanding
   const exportAIContext = () => {
     const aiContext = {
       metadata: {
@@ -451,7 +449,7 @@ function App() {
             language: note.language || 'html',
             contentLength: note.content.length,
             contentPreview: note.content.substring(0, 200) + '...',
-            fullContent: note.content, // Complete HTML/code content for AI analysis
+            fullContent: note.content,
             hasCheckpoints: (note.versions || []).length > 0,
             checkpointCount: (note.versions || []).length,
             versionHistory: (note.versions || []).map(v => ({
@@ -508,43 +506,24 @@ function App() {
         searchQuery: searchQuery
       },
       aiInstructions: {
-        purpose: 'This JSON contains the COMPLETE learning context of the student. Use it to understand their study journey, progress, and provide personalized guidance.',
+        purpose: 'This JSON contains the COMPLETE learning context of the student.',
         dataStructure: {
           completeStructure: 'Full hierarchy with ALL note content included',
-          fullContent: 'Every note includes the complete HTML/code in the fullContent field',
-          versionHistory: 'Checkpoint history shows learning progression over time',
+          fullContent: 'Every note includes the complete HTML/code',
+          versionHistory: 'Checkpoint history shows learning progression',
           tags: 'Student-created tags indicate topic focus areas'
         },
         howToAnalyze: [
-          '1. Review the overview section to understand scope of studies',
-          '2. Check currentSession to see what they are currently working on',
-          '3. Analyze learningProgress to identify strengths and gaps',
-          '4. Read note content to understand depth of knowledge',
-          '5. Check version history to see learning progression',
-          '6. Use tags to map knowledge domains'
-        ],
-        suggestedActions: [
-          'Review current focus area and provide feedback',
-          'Suggest improvements to existing notes',
-          'Identify knowledge gaps based on tag coverage',
-          'Recommend next topics to study',
-          'Create practice exercises for weak areas',
-          'Validate technical accuracy of content',
-          'Suggest better organization or structure',
-          'Help with TSSR exam preparation strategy'
-        ],
-        keyInsights: [
-          'Projects represent major learning domains',
-          'Sections organize topics within domains',
-          'Notes contain actual learning content (HTML/code/documentation)',
-          'Tags show how the student categorizes knowledge',
-          'Checkpoints indicate important milestones',
-          'Content length and checkpoint frequency indicate engagement level'
+          'Review overview to understand scope',
+          'Check currentSession for current work',
+          'Analyze learningProgress for strengths/gaps',
+          'Read note content for knowledge depth',
+          'Check version history for progression',
+          'Use tags to map knowledge domains'
         ]
       }
     };
 
-    // Calculate notes by tag
     const tagCounts = {};
     data.projects.forEach(project => {
       project.sections.forEach(section => {
@@ -557,7 +536,6 @@ function App() {
     });
     aiContext.learningProgress.notesByTag = tagCounts;
 
-    // Calculate notes by language
     const langCounts = {};
     data.projects.forEach(project => {
       project.sections.forEach(section => {
@@ -569,7 +547,6 @@ function App() {
     });
     aiContext.learningProgress.notesByLanguage = langCounts;
 
-    // Most used tags
     const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
     aiContext.learningProgress.completionMetrics.mostUsedTags = sortedTags.map(([tag, count]) => ({
       tag, count
@@ -584,27 +561,7 @@ function App() {
     a.click();
     URL.revokeObjectURL(url);
     
-    const summary = `✅ AI Context Exported Successfully!
-
-📊 Study Snapshot:
-━━━━━━━━━━━━━━━━━━━━━
-📁 Projects: ${aiContext.overview.totalProjects}
-📂 Sections: ${aiContext.overview.totalSections}
-📝 Notes: ${aiContext.overview.totalNotes}
-🏷️ Unique Tags: ${aiContext.overview.allTags.length}
-📏 Total Content: ${Math.round(aiContext.overview.totalContentSize / 1024)}KB
-✅ With Checkpoints: ${aiContext.learningProgress.completionMetrics.notesWithCheckpoints}
-
-🎯 Current Focus: ${selectedNote ? selectedNote.title : 'None'}
-
-💡 Next Steps:
-1. Upload this JSON to Claude/Astra/GPT
-2. Ask: "Review my study progress"
-3. Get personalized learning recommendations!
-
-Share this file with any AI for complete context! 🤖`;
-    
-    alert(summary);
+    alert(`✅ AI Context Exported!\n\n📊 ${aiContext.overview.totalProjects} Projects\n📝 ${aiContext.overview.totalNotes} Notes\n🏷️ ${aiContext.overview.allTags.length} Tags`);
   };
 
   const importData = (e) => {
@@ -659,6 +616,7 @@ Share this file with any AI for complete context! 🤖`;
 
   return (
     <div className="flex h-screen bg-gray-900 text-gray-100" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+      {/* SIDEBAR */}
       <div className="w-80 bg-gray-800 border-r border-gray-700 flex flex-col">
         <div className="p-4 border-b border-gray-700">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
@@ -698,7 +656,7 @@ Share this file with any AI for complete context! 🤖`;
           <button
             onClick={exportAIContext}
             className="px-3 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors"
-            title="Export AI Context - Full study snapshot for AI understanding"
+            title="Export AI Context"
           >
             <Brain className="w-4 h-4" />
           </button>
@@ -899,6 +857,7 @@ Share this file with any AI for complete context! 🤖`;
         </div>
       </div>
 
+      {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col">
         <div className="h-14 bg-gray-800 border-b border-gray-700 flex items-center justify-between px-4">
           <div className="flex items-center gap-3">
@@ -994,40 +953,40 @@ Share this file with any AI for complete context! 🤖`;
             <>
               <div className="flex-1 overflow-hidden">
                 {viewMode === 'split' ? (
-                  <SplitPane
-                    split="vertical"
-                    minSize={200}
-                    defaultSize={splitSize}
-                    onChange={(size) => setSplitSize(size)}
-                  >
-                    <div className="h-full">
-                      <Editor
-                        height="100%"
-                        language={getLanguage()}
-                        value={selectedNote.content}
-                        onChange={(value) => updateNoteContent(value || '')}
-                        theme={editorTheme}
-                        options={{
-                          minimap: { enabled: false },
-                          fontSize: 14,
-                          lineNumbers: 'on',
-                          roundedSelection: true,
-                          scrollBeyondLastLine: false,
-                          automaticLayout: true,
-                          tabSize: 2,
-                          wordWrap: 'on'
-                        }}
-                      />
-                    </div>
-                    <div className="h-full bg-white">
-                      <iframe
-                        srcDoc={getSanitizedHTML()}
-                        className="w-full h-full border-none"
-                        title="Preview"
-                        sandbox={allowScripts ? "allow-scripts" : ""}
-                      />
-                    </div>
-                  </SplitPane>
+                  <PanelGroup direction="horizontal">
+                    <Panel defaultSize={50} minSize={20}>
+                      <div className="h-full">
+                        <Editor
+                          height="100%"
+                          language={getLanguage()}
+                          value={selectedNote.content}
+                          onChange={(value) => updateNoteContent(value || '')}
+                          theme={editorTheme}
+                          options={{
+                            minimap: { enabled: false },
+                            fontSize: 14,
+                            lineNumbers: 'on',
+                            roundedSelection: true,
+                            scrollBeyondLastLine: false,
+                            automaticLayout: true,
+                            tabSize: 2,
+                            wordWrap: 'on'
+                          }}
+                        />
+                      </div>
+                    </Panel>
+                    <PanelResizeHandle className="w-1 bg-gray-700 hover:bg-indigo-600 transition-colors cursor-col-resize" />
+                    <Panel defaultSize={50} minSize={20}>
+                      <div className="h-full bg-white">
+                        <iframe
+                          srcDoc={getSanitizedHTML()}
+                          className="w-full h-full border-none"
+                          title="Preview"
+                          sandbox={allowScripts ? "allow-scripts" : ""}
+                        />
+                      </div>
+                    </Panel>
+                  </PanelGroup>
                 ) : viewMode === 'code' ? (
                   <Editor
                     height="100%"
