@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
@@ -22,7 +22,7 @@
   },
   "overrides": {
     "ajv": "6.12.6",
-    "ajv-keywords": "3.5.2",
-    "schema-utils": "2.7.1"
+    "ajv-keywords": "3.5.2"
+    // Optionally add "schema-utils": "4.0.0" if needed
   }
 }
