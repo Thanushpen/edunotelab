@@ -5,5 +5,9 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist'
+  },
+  esbuild: {
+    loader: 'jsx',
+    include: /src\/.*\.js$/
   }
 })
