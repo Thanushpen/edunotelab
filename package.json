@@ -16,7 +16,20 @@
     "react-dom": "^18.2.0",
     "react-resizable-panels": "^2.0.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+
+    /* 👇 add these two to satisfy webpack’s validators */
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0"
+  },
+  "overrides": {
+    /* 👇 force correct transitive versions during install */
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0"
+  },
+  "engines": {
+    /* 👇 ask the platform to use Node 18 for builds */
+    "node": "18.x"
   },
   "scripts": {
     "start": "react-scripts start",
