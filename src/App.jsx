@@ -565,21 +565,99 @@ function App() {
   };
 
   const importData = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      try {
-        const imported = JSON.parse(event.target.result);
-        setData(imported);
-        alert('✅ Import successful!');
-      } catch (err) {
-        alert('❌ Invalid file format');
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const imported = JSON.parse(event.target.result);
+      
+      // Validate structure
+      if (!imported) {
+        alert('❌ Invalid file: Empty or null data');
+        return;
       }
-    };
-    reader.readAsText(file);
+      
+      if (!imported.projects) {
+        alert('❌ Invalid format: Missing "projects" property\n\nExpected structure:\n{\n  "projects": [...]\n}');
+        return;
+      }
+      
+      if (!Array.isArray(imported.projects)) {
+        alert('❌ Invalid format: "projects" must be an array');
+        return;
+      }
+      
+      // Validate each project
+      for (let i = 0; i < imported.projects.length; i++) {
+        const project = imported.projects[i];
+        
+        if (!project.id || !project.name) {
+          alert(`❌ Invalid project at index ${i}: Missing "id" or "name"`);
+          return;
+        }
+        
+        if (!Array.isArray(project.sections)) {
+          alert(`❌ Invalid project "${project.name}": Missing or invalid "sections" array`);
+          return;
+        }
+        
+        // Validate sections
+        for (let j = 0; j < project.sections.length; j++) {
+          const section = project.sections[j];
+          
+          if (!section.id || !section.name) {
+            alert(`❌ Invalid section at project "${project.name}": Missing "id" or "name"`);
+            return;
+          }
+          
+          if (!Array.isArray(section.notes)) {
+            alert(`❌ Invalid section "${section.name}": Missing or invalid "notes" array`);
+            return;
+          }
+          
+          // Validate notes
+          for (let k = 0; k < section.notes.length; k++) {
+            const note = section.notes[k];
+            
+            if (!note.id || !note.title || !note.content) {
+              alert(`❌ Invalid note at section "${section.name}": Missing required fields`);
+              return;
+            }
+            
+            // Add missing optional fields with defaults
+            note.tags = note.tags || [];
+            note.versions = note.versions || [];
+            note.translations = note.translations || {};
+            note.language = note.language || 'html';
+          }
+        }
+      }
+      
+      // If all validations pass, import the data
+      setData(imported);
+      alert(`✅ Import successful!\n\n📊 ${imported.projects.length} Projects\n📝 ${imported.projects.reduce((acc, p) => acc + p.sections.reduce((acc2, s) => acc2 + s.notes.length, 0), 0)} Notes`);
+      
+      // Expand first project and section
+      if (imported.projects[0]) {
+        setExpandedProjects({ [imported.projects[0].id]: true });
+        if (imported.projects[0].sections[0]) {
+          setExpandedSections({ [imported.projects[0].sections[0].id]: true });
+          if (imported.projects[0].sections[0].notes[0]) {
+            setSelectedNote(imported.projects[0].sections[0].notes[0]);
+          }
+        }
+      }
+      
+    } catch (err) {
+      alert(`❌ Invalid JSON file!\n\nError: ${err.message}\n\nMake sure your file is valid JSON format.`);
+      console.error('Import error:', err);
+    }
   };
+  
+  reader.readAsText(file);
+};
 
   const getSanitizedHTML = () => {
     if (!selectedNote) return '';
