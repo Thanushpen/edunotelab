@@ -7,7 +7,7 @@ import {
 import Editor from '@monaco-editor/react';
 import DOMPurify from 'dompurify';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash.debounce';
 
 const getInitialData = () => {
   const saved = localStorage.getItem('edunotelab-data');
