@@ -741,34 +741,73 @@ function App() {
   };
 
   const importData = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
-    
+  
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
-        const imported = JSON.parse(event.target.result);
-        if (!imported || !imported.projects || !Array.isArray(imported.projects)) {
-          alert('❌ Invalid format');
+        const raw = JSON.parse(event.target.result);
+  
+        // Detect supported shapes
+        let projects = null;
+        if (Array.isArray(raw?.projects)) {
+          projects = raw.projects;                       // full backup
+        } else if (Array.isArray(raw?.completeStructure)) {
+          projects = raw.completeStructure;              // AI Context export
+        } else if (Array.isArray(raw)) {
+          projects = raw;                                // bare array of projects
+        }
+  
+        if (!projects) {
+          alert('❌ Invalid format: expected { projects: [...] } or { completeStructure: [...] }');
           return;
         }
+  
+        // Normalize and validate data structure
+        projects.forEach((project, pi) => {
+          if (!project.id || !project.name) throw new Error(`Project #${pi} missing id/name`);
+          project.sections = Array.isArray(project.sections) ? project.sections : [];
+          project.sections.forEach((section, si) => {
+            if (!section.id || !section.name) throw new Error(`Section #${si} in "${project.name}" missing id/name`);
+            section.notes = Array.isArray(section.notes) ? section.notes : [];
+            section.notes.forEach((note, ni) => {
+              if (!note.id || !note.title || !note.content) {
+                throw new Error(`Note #${ni} in "${section.name}" missing id/title/content`);
+              }
+              note.tags = Array.isArray(note.tags) ? note.tags : [];
+              note.versions = Array.isArray(note.versions) ? note.versions : [];
+              note.translations = note.translations || {};
+              note.language = note.language || 'html';
+            });
+          });
+        });
+  
+        const imported = { projects };
         setData(imported);
-        alert('✅ Import successful!');
-        if (imported.projects[0]) {
-          setExpandedProjects({ [imported.projects[0].id]: true });
-          if (imported.projects[0].sections[0]) {
-            setExpandedSections({ [imported.projects[0].sections[0].id]: true });
-            if (imported.projects[0].sections[0].notes[0]) {
-              setSelectedNote(imported.projects[0].sections[0].notes[0]);
+        localStorage.setItem('edunotelab-data', JSON.stringify(imported));
+  
+        // Open first note
+        if (projects[0]) {
+          setExpandedProjects({ [projects[0].id]: true });
+          if (projects[0].sections[0]) {
+            setExpandedSections({ [projects[0].sections[0].id]: true });
+            if (projects[0].sections[0].notes[0]) {
+              setSelectedNote(projects[0].sections[0].notes[0]);
             }
           }
         }
+  
+        alert(`✅ Import successful! ${projects.length} project(s) loaded.`);
       } catch (err) {
-        alert('❌ Invalid JSON file!');
+        alert(`❌ Invalid JSON: ${err.message}`);
+        console.error('Import error:', err);
       }
     };
+  
     reader.readAsText(file);
   };
+  
 
   const getSanitizedHTML = () => {
     if (!selectedNote) return '';
