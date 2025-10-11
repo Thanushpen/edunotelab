@@ -848,19 +848,22 @@ function App() {
 // Place this right before your main "return (" statement in App.jsx
 
 
-  if (showLanding) {
-    return (
-      <>
-        <div
-          className="landing-wrapper"
-          style={{
-            minHeight: 'auto',
-            background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
-            color: '#f8fafc',
-            fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
-            position: 'relative',
-          }}
-        >
+if (showLanding) {
+  return (
+    <>
+      <div
+        className="landing-wrapper"
+        style={{
+          minHeight: 'auto',
+          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
+          color: '#f8fafc',
+          fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
+          position: 'relative',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
           {/* Animated background elements */}
           <div
             className="animated-bg-circle-1"
