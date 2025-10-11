@@ -7,7 +7,7 @@ import {
 import Editor from '@monaco-editor/react';
 import DOMPurify from 'dompurify';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import debounce from 'lodash.debounce';  // ✅ CORRECT!
+import debounce from 'lodash.debounce';
 
 const getInitialData = () => {
   const saved = localStorage.getItem('edunotelab-data');
@@ -133,6 +133,11 @@ function App() {
   const [allowScripts, setAllowScripts] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [editorTheme, setEditorTheme] = useState('vs-dark');
+  const [showLanding, setShowLanding] = useState(() => {
+    const hasVisited = localStorage.getItem('edunotelab-visited');
+    const hasData = localStorage.getItem('edunotelab-data');
+    return !hasVisited && !hasData;
+  });
 
   const debouncedSave = useMemo(
     () => debounce(() => {
@@ -417,140 +422,16 @@ function App() {
         exportDate: new Date().toISOString(),
         appName: 'EduNoteLab',
         appVersion: '1.0.0',
-        purpose: 'AI Learning Context - Complete study snapshot for Claude/Astra/Grok/GPT',
-        studentInfo: {
-          learningGoals: ['TSSR Certification 2026', 'React Development', 'Full-Stack Development', 'Network Administration'],
-          lastActivity: new Date().toISOString(),
-          totalStudyTime: 'Tracked via checkpoints'
-        }
+        purpose: 'AI Learning Context - Complete study snapshot for Claude/Astra/Grok/GPT'
       },
       overview: {
         totalProjects: data.projects.length,
         totalSections: data.projects.reduce((acc, p) => acc + p.sections.length, 0),
         totalNotes: data.projects.reduce((acc, p) => 
-          acc + p.sections.reduce((acc2, s) => acc2 + s.notes.length, 0), 0),
-        allTags: [...new Set(data.projects.flatMap(p => 
-          p.sections.flatMap(s => s.notes.flatMap(n => n.tags))))].sort(),
-        totalContentSize: data.projects.reduce((acc, p) => 
-          acc + p.sections.reduce((acc2, s) => 
-            acc2 + s.notes.reduce((acc3, n) => acc3 + n.content.length, 0), 0), 0)
+          acc + p.sections.reduce((acc2, s) => acc2 + s.notes.length, 0), 0)
       },
-      completeStructure: data.projects.map(project => ({
-        projectName: project.name,
-        projectId: project.id,
-        sections: project.sections.map(section => ({
-          sectionName: section.name,
-          sectionId: section.id,
-          noteCount: section.notes.length,
-          notes: section.notes.map(note => ({
-            noteTitle: note.title,
-            noteId: note.id,
-            tags: note.tags,
-            language: note.language || 'html',
-            contentLength: note.content.length,
-            contentPreview: note.content.substring(0, 200) + '...',
-            fullContent: note.content,
-            hasCheckpoints: (note.versions || []).length > 0,
-            checkpointCount: (note.versions || []).length,
-            versionHistory: (note.versions || []).map(v => ({
-              version: v.version,
-              date: v.date,
-              contentLength: v.content.length
-            })),
-            lastModified: note.versions && note.versions.length > 0 
-              ? note.versions[note.versions.length - 1].date 
-              : 'Not tracked',
-            createdDate: note.id.startsWith('n') ? new Date(parseInt(note.id.substring(1))).toISOString() : 'unknown'
-          }))
-        }))
-      })),
-      learningProgress: {
-        notesByTag: {},
-        notesByLanguage: {},
-        projectCompletionStatus: data.projects.map(p => ({
-          project: p.name,
-          sections: p.sections.length,
-          notes: p.sections.reduce((acc, s) => acc + s.notes.length, 0),
-          notesWithCheckpoints: p.sections.reduce((acc, s) => 
-            acc + s.notes.filter(n => (n.versions || []).length > 0).length, 0)
-        })),
-        completionMetrics: {
-          notesWithTags: data.projects.flatMap(p => 
-            p.sections.flatMap(s => s.notes)).filter(n => n.tags.length > 0).length,
-          notesWithCheckpoints: data.projects.flatMap(p => 
-            p.sections.flatMap(s => s.notes)).filter(n => (n.versions || []).length > 0).length,
-          averageContentLength: Math.round(
-            data.projects.reduce((acc, p) => 
-              acc + p.sections.reduce((acc2, s) => 
-                acc2 + s.notes.reduce((acc3, n) => acc3 + n.content.length, 0), 0), 0) /
-            Math.max(1, data.projects.reduce((acc, p) => 
-              acc + p.sections.reduce((acc2, s) => acc2 + s.notes.length, 0), 0))
-          ),
-          mostUsedTags: []
-        }
-      },
-      currentSession: {
-        currentlyViewing: selectedNote ? {
-          noteTitle: selectedNote.title,
-          noteId: selectedNote.id,
-          tags: selectedNote.tags,
-          contentLength: selectedNote.content.length,
-          project: data.projects.find(p => 
-            p.sections.some(s => s.notes.some(n => n.id === selectedNote.id)))?.name,
-          section: data.projects.flatMap(p => p.sections)
-            .find(s => s.notes.some(n => n.id === selectedNote.id))?.name
-        } : 'No note selected',
-        viewMode: viewMode,
-        editorTheme: editorTheme,
-        searchActive: searchQuery.length > 0,
-        searchQuery: searchQuery
-      },
-      aiInstructions: {
-        purpose: 'This JSON contains the COMPLETE learning context of the student.',
-        dataStructure: {
-          completeStructure: 'Full hierarchy with ALL note content included',
-          fullContent: 'Every note includes the complete HTML/code',
-          versionHistory: 'Checkpoint history shows learning progression',
-          tags: 'Student-created tags indicate topic focus areas'
-        },
-        howToAnalyze: [
-          'Review overview to understand scope',
-          'Check currentSession for current work',
-          'Analyze learningProgress for strengths/gaps',
-          'Read note content for knowledge depth',
-          'Check version history for progression',
-          'Use tags to map knowledge domains'
-        ]
-      }
+      completeStructure: data.projects
     };
-
-    const tagCounts = {};
-    data.projects.forEach(project => {
-      project.sections.forEach(section => {
-        section.notes.forEach(note => {
-          note.tags.forEach(tag => {
-            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-          });
-        });
-      });
-    });
-    aiContext.learningProgress.notesByTag = tagCounts;
-
-    const langCounts = {};
-    data.projects.forEach(project => {
-      project.sections.forEach(section => {
-        section.notes.forEach(note => {
-          const lang = note.language || 'html';
-          langCounts[lang] = (langCounts[lang] || 0) + 1;
-        });
-      });
-    });
-    aiContext.learningProgress.notesByLanguage = langCounts;
-
-    const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
-    aiContext.learningProgress.completionMetrics.mostUsedTags = sortedTags.map(([tag, count]) => ({
-      tag, count
-    }));
 
     const jsonStr = JSON.stringify(aiContext, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
@@ -560,119 +441,42 @@ function App() {
     a.download = `edunotelab-ai-context-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    
-    alert(`✅ AI Context Exported!\n\n📊 ${aiContext.overview.totalProjects} Projects\n📝 ${aiContext.overview.totalNotes} Notes\n🏷️ ${aiContext.overview.allTags.length} Tags`);
   };
 
   const importData = (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    try {
-      const imported = JSON.parse(event.target.result);
-      
-      // Validate structure
-      if (!imported) {
-        alert('❌ Invalid file: Empty or null data');
-        return;
-      }
-      
-      if (!imported.projects) {
-        alert('❌ Invalid format: Missing "projects" property\n\nExpected structure:\n{\n  "projects": [...]\n}');
-        return;
-      }
-      
-      if (!Array.isArray(imported.projects)) {
-        alert('❌ Invalid format: "projects" must be an array');
-        return;
-      }
-      
-      // Validate each project
-      for (let i = 0; i < imported.projects.length; i++) {
-        const project = imported.projects[i];
-        
-        if (!project.id || !project.name) {
-          alert(`❌ Invalid project at index ${i}: Missing "id" or "name"`);
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const imported = JSON.parse(event.target.result);
+        if (!imported || !imported.projects || !Array.isArray(imported.projects)) {
+          alert('❌ Invalid format');
           return;
         }
-        
-        if (!Array.isArray(project.sections)) {
-          alert(`❌ Invalid project "${project.name}": Missing or invalid "sections" array`);
-          return;
-        }
-        
-        // Validate sections
-        for (let j = 0; j < project.sections.length; j++) {
-          const section = project.sections[j];
-          
-          if (!section.id || !section.name) {
-            alert(`❌ Invalid section at project "${project.name}": Missing "id" or "name"`);
-            return;
-          }
-          
-          if (!Array.isArray(section.notes)) {
-            alert(`❌ Invalid section "${section.name}": Missing or invalid "notes" array`);
-            return;
-          }
-          
-          // Validate notes
-          for (let k = 0; k < section.notes.length; k++) {
-            const note = section.notes[k];
-            
-            if (!note.id || !note.title || !note.content) {
-              alert(`❌ Invalid note at section "${section.name}": Missing required fields`);
-              return;
+        setData(imported);
+        alert('✅ Import successful!');
+        if (imported.projects[0]) {
+          setExpandedProjects({ [imported.projects[0].id]: true });
+          if (imported.projects[0].sections[0]) {
+            setExpandedSections({ [imported.projects[0].sections[0].id]: true });
+            if (imported.projects[0].sections[0].notes[0]) {
+              setSelectedNote(imported.projects[0].sections[0].notes[0]);
             }
-            
-            // Add missing optional fields with defaults
-            note.tags = note.tags || [];
-            note.versions = note.versions || [];
-            note.translations = note.translations || {};
-            note.language = note.language || 'html';
           }
         }
+      } catch (err) {
+        alert('❌ Invalid JSON file!');
       }
-      
-      // If all validations pass, import the data
-      setData(imported);
-      alert(`✅ Import successful!\n\n📊 ${imported.projects.length} Projects\n📝 ${imported.projects.reduce((acc, p) => acc + p.sections.reduce((acc2, s) => acc2 + s.notes.length, 0), 0)} Notes`);
-      
-      // Expand first project and section
-      if (imported.projects[0]) {
-        setExpandedProjects({ [imported.projects[0].id]: true });
-        if (imported.projects[0].sections[0]) {
-          setExpandedSections({ [imported.projects[0].sections[0].id]: true });
-          if (imported.projects[0].sections[0].notes[0]) {
-            setSelectedNote(imported.projects[0].sections[0].notes[0]);
-          }
-        }
-      }
-      
-    } catch (err) {
-      alert(`❌ Invalid JSON file!\n\nError: ${err.message}\n\nMake sure your file is valid JSON format.`);
-      console.error('Import error:', err);
-    }
+    };
+    reader.readAsText(file);
   };
-  
-  reader.readAsText(file);
-};
 
   const getSanitizedHTML = () => {
     if (!selectedNote) return '';
-    
-    if (allowScripts) {
-      return selectedNote.content;
-    }
-    
-    return DOMPurify.sanitize(selectedNote.content, {
-      ALLOWED_TAGS: ['html', 'head', 'body', 'title', 'meta', 'link', 'style', 
-                     'div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
-                     'ul', 'ol', 'li', 'a', 'img', 'br', 'hr', 'table', 'tr', 
-                     'td', 'th', 'thead', 'tbody', 'strong', 'em', 'b', 'i', 'u'],
-      ALLOWED_ATTR: ['class', 'id', 'style', 'href', 'src', 'alt', 'title', 'target']
-    });
+    if (allowScripts) return selectedNote.content;
+    return DOMPurify.sanitize(selectedNote.content);
   };
 
   const toggleProject = (projectId) => {
@@ -692,9 +496,164 @@ function App() {
     return selectedNote.language || 'html';
   };
 
+  const enterApp = () => {
+    localStorage.setItem('edunotelab-visited', 'true');
+    setShowLanding(false);
+  };
+
+  if (showLanding) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-gray-100">
+        <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-xl shadow-lg">
+                E
+              </div>
+              <span className="text-xl font-bold">EduNoteLab</span>
+            </div>
+            <button
+              onClick={enterApp}
+              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl"
+            >
+              Open App →
+            </button>
+          </div>
+        </header>
+
+        <section className="max-w-7xl mx-auto px-6 py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-sm font-semibold mb-6">
+                🔒 Privacy-first • 🧠 AI-ready • ⚡ Live Preview
+              </div>
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Your AI-Powered <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Study Notebook</span>
+              </h1>
+              <p className="text-xl text-gray-400 mb-8">
+                Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context. All stored locally on your device.
+              </p>
+              <div className="flex gap-4 flex-wrap">
+                <button
+                  onClick={enterApp}
+                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+                >
+                  Get Started Free
+                </button>
+                <a
+                  href="#how"
+                  className="px-8 py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg font-semibold text-lg transition-all"
+                >
+                  See How It Works
+                </a>
+              </div>
+            </div>
+
+            <div className="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 shadow-2xl">
+              <div className="bg-gray-900 px-4 py-3 border-b border-gray-700 flex items-center justify-between">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <span className="text-xs text-gray-500">index.html — preview</span>
+              </div>
+              <div className="p-4 bg-gray-900">
+                <pre className="text-sm text-gray-300 overflow-x-auto">
+                  <code>{`<section class="card">
+  <h2>React Hooks Cheatsheet</h2>
+  <ul>
+    <li><strong>useState</strong> — local state</li>
+    <li><strong>useEffect</strong> — side effects</li>
+    <li><strong>useMemo</strong> — memoize values</li>
+  </ul>
+</section>`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" className="max-w-7xl mx-auto px-6 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">What makes EduNoteLab different?</h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Built for technical learners: networking, systems, cloud, and frontend dev. Live split-view rendering keeps your notes structured and searchable.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: '⧉', title: 'Split View Editor', desc: 'Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs.' },
+              { icon: '#', title: 'Projects → Sections → Notes', desc: 'Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.' },
+              { icon: '🔁', title: 'Auto-save & Checkpoints', desc: 'Every change saved locally. Create version snapshots you can roll back to anytime.' },
+              { icon: '🌐', title: 'Translate on Demand', desc: 'Optional API hook for translations and side-by-side viewing (via backend proxy).' },
+              { icon: '🔒', title: 'Privacy-First', desc: 'No backend required. Your data stays on your device. Export/import JSON at will.' },
+              { icon: '🤖', title: 'AI Context Export', desc: 'Export your complete learning context for Claude, ChatGPT, or any AI assistant.' }
+            ].map((feature, i) => (
+              <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 hover:border-indigo-600/50 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl mb-4 shadow-lg">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="how" className="max-w-7xl mx-auto px-6 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">How it works</h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 border border-indigo-700/50 rounded-2xl p-6">
+              <div className="text-4xl font-bold text-indigo-400 mb-3">1</div>
+              <h3 className="text-xl font-bold mb-2">Ask AI</h3>
+              <p className="text-gray-400">"Generate a styled HTML note about HSRP with commands & explanations."</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-700/50 rounded-2xl p-6">
+              <div className="text-4xl font-bold text-purple-400 mb-3">2</div>
+              <h3 className="text-xl font-bold mb-2">Paste</h3>
+              <p className="text-gray-400">Create a note → paste the HTML into the code pane.</p>
+            </div>
+            <div className="bg-gradient-to-br from-pink-900/30 to-cyan-900/30 border border-pink-700/50 rounded-2xl p-6">
+              <div className="text-4xl font-bold text-cyan-400 mb-3">3</div>
+              <h3 className="text-xl font-bold mb-2">Preview</h3>
+              <p className="text-gray-400">Toggle split view and see your formatted page instantly.</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={enterApp}
+              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+            >
+              Start Learning Now →
+            </button>
+          </div>
+        </section>
+
+        <footer className="border-t border-gray-800 mt-20">
+          <div className="max-w-7xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-gray-400">
+            <div>© {new Date().getFullYear()} EduNoteLab — Made for learners.</div>
+            <div className="flex gap-6">
+              <a href="#features" className="hover:text-indigo-400 transition-colors">Features</a>
+              <a href="#how" className="hover:text-indigo-400 transition-colors">How it works</a>
+              <button onClick={enterApp} className="hover:text-indigo-400 transition-colors font-semibold">Open App</button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-gray-900 text-gray-100" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
-      {/* SIDEBAR */}
       <div className="w-80 bg-gray-800 border-r border-gray-700 flex flex-col">
         <div className="p-4 border-b border-gray-700">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
@@ -935,7 +894,6 @@ function App() {
         </div>
       </div>
 
-      {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col">
         <div className="h-14 bg-gray-800 border-b border-gray-700 flex items-center justify-between px-4">
           <div className="flex items-center gap-3">
@@ -992,16 +950,6 @@ function App() {
                 </button>
               </>
             )}
-            <button
-              onClick={() => setShowTranslation(!showTranslation)}
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm ${
-                showTranslation ? 'bg-indigo-600' : 'bg-gray-700 hover:bg-gray-600'
-              }`}
-              title="Translation"
-            >
-              <Languages className="w-4 h-4" />
-              <span className="hidden sm:inline">Translate</span>
-            </button>
           </div>
         </div>
 
@@ -1018,13 +966,6 @@ function App() {
                 >
                   Create Your First Project
                 </button>
-                <div className="mt-8 text-sm text-gray-400 space-y-2">
-                  <p>✨ Split-view editor with live preview</p>
-                  <p>🔍 Search across all notes</p>
-                  <p>🏷️ Organize with tags</p>
-                  <p>💾 Auto-save to browser</p>
-                  <p>🤖 AI Context Export for learning assistance</p>
-                </div>
               </div>
             </div>
           ) : (
@@ -1145,52 +1086,9 @@ function App() {
             </>
           )}
         </div>
-
-        {showTranslation && selectedNote && (
-          <div className="h-48 bg-gray-800 border-t border-gray-700 p-4 overflow-y-auto">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Languages className="w-5 h-5 text-indigo-400" />
-                Translation Preview
-              </h3>
-              <div className="flex items-center gap-2">
-                <select 
-                  value={targetLang}
-                  onChange={(e) => setTargetLang(e.target.value)}
-                  className="px-3 py-1 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="en">🇬🇧 English</option>
-                  <option value="fr">🇫🇷 Français</option>
-                  <option value="de">🇩🇪 Deutsch</option>
-                  <option value="es">🇪🇸 Español</option>
-                  <option value="ja">🇯🇵 日本語</option>
-                  <option value="zh">🇨🇳 中文</option>
-                  <option value="ar">🇸🇦 العربية</option>
-                </select>
-                <button
-                  onClick={() => setShowTranslation(false)}
-                  className="p-1 hover:bg-gray-700 rounded"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-            <div className="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-700/30 rounded-lg p-4">
-              <div className="flex items-start gap-2 text-sm text-gray-300 mb-2">
-                <AlertCircle className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-semibold mb-1">Translation Feature (Backend Required)</p>
-                  <p className="text-xs text-gray-400">
-                    To use real-time translation, integrate Google Translate, DeepL, or LibreTranslate API.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
-  ); 
+  );
 }
 
-export default App; 
+export default App;
