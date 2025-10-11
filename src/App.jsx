@@ -21,6 +21,303 @@ const getInitialData = () => {
   return {
     projects: [
       {
+        id: 'p0',
+        name: '🏠 Home - Getting Started',
+        sections: [
+          {
+            id: 's0',
+            name: 'Welcome Guide',
+            notes: [
+              {
+                id: 'n0',
+                title: 'Welcome to EduNoteLab',
+                content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to EduNoteLab</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      padding: 40px; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card { 
+      background: white; 
+      padding: 40px; 
+      border-radius: 12px; 
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 { 
+      color: #6366f1; 
+      margin: 0 0 20px 0;
+      font-size: 2.5em;
+    }
+    h2 {
+      color: #7c3aed;
+      margin-top: 30px;
+    }
+    p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 1.1em;
+    }
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    ul {
+      line-height: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">🔒 Privacy-first • 🧠 AI-ready • ⚡ Live Preview</span>
+    <h1>👋 Welcome to EduNoteLab!</h1>
+    <p><strong>Your AI-Powered Study Notebook for Tech Learning</strong></p>
+    
+    <h2>What is EduNoteLab?</h2>
+    <p>EduNoteLab is a powerful note-taking app designed for technical learners. Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context — all stored locally on your device.</p>
+    
+    <h2>Quick Start</h2>
+    <ul>
+      <li><strong>Create a Project:</strong> Click "+ Project" in the sidebar</li>
+      <li><strong>Add Sections:</strong> Click "+" next to any project</li>
+      <li><strong>Create Notes:</strong> Click "+" next to any section</li>
+      <li><strong>Edit & Preview:</strong> Use split view to see live HTML/code rendering</li>
+      <li><strong>Organize:</strong> Add tags to your notes for easy searching</li>
+      <li><strong>Save Versions:</strong> Click "Checkpoint" to save snapshots</li>
+    </ul>
+    
+    <h2>✨ Pro Tips</h2>
+    <p>💡 Ask AI (Claude, ChatGPT, etc.) to generate styled HTML notes for you, then paste them here!</p>
+    <p>🔍 Use the search bar to find notes across all projects</p>
+    <p>🤖 Export AI Context to share your entire learning progress with AI assistants</p>
+  </div>
+</body>
+</html>`,
+                tags: ['guide', 'welcome', 'tutorial'],
+                versions: [],
+                translations: {},
+                language: 'html'
+              }
+            ]
+          },
+          {
+            id: 's0b',
+            name: 'Features',
+            notes: [
+              {
+                id: 'n0b',
+                title: 'Key Features Overview',
+                content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduNoteLab Features</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      padding: 40px; 
+      background: #f3f4f6;
+      margin: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 { 
+      color: #6366f1; 
+      text-align: center;
+      font-size: 2.5em;
+    }
+    .feature {
+      background: white;
+      padding: 30px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-left: 5px solid #6366f1;
+    }
+    .feature h2 {
+      color: #7c3aed;
+      margin-top: 0;
+    }
+    .icon {
+      font-size: 2em;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>What makes EduNoteLab different?</h1>
+    
+    <div class="feature">
+      <h2><span class="icon">⧉</span>Split View Editor</h2>
+      <p>Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs and write-ups.</p>
+    </div>
+    
+    <div class="feature">
+      <h2><span class="icon">#</span>Projects → Sections → Notes</h2>
+      <p>Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.</p>
+    </div>
+    
+    <div class="feature">
+      <h2><span class="icon">🔁</span>Auto-save & Checkpoints</h2>
+      <p>Every change is saved locally. Create version snapshots you can roll back to anytime.</p>
+    </div>
+    
+    <div class="feature">
+      <h2><span class="icon">🌐</span>Translate on Demand</h2>
+      <p>Optional API hook for EN↔FR↔DE translations and side-by-side viewing (via backend proxy).</p>
+    </div>
+    
+    <div class="feature">
+      <h2><span class="icon">🔒</span>Privacy-First</h2>
+      <p>No backend required. Your data stays on your device. Export/import JSON at will.</p>
+    </div>
+    
+    <div class="feature">
+      <h2><span class="icon">🤖</span>AI Context Export</h2>
+      <p>Export your complete learning context for Claude, ChatGPT, or any AI assistant to analyze your progress.</p>
+    </div>
+  </div>
+</body>
+</html>`,
+                tags: ['features', 'guide'],
+                versions: [],
+                translations: {},
+                language: 'html'
+              }
+            ]
+          },
+          {
+            id: 's0c',
+            name: 'How to Use',
+            notes: [
+              {
+                id: 'n0c',
+                title: 'The Magic Copy-Paste Workflow',
+                content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How to Use EduNoteLab</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      padding: 40px; 
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    h1 { 
+      color: #6366f1; 
+      text-align: center;
+      font-size: 2.5em;
+    }
+    .step {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 12px;
+      border-left: 5px solid #0ea5e9;
+    }
+    .step-number {
+      background: #0ea5e9;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-right: 15px;
+    }
+    .step h2 {
+      display: inline;
+      color: #0369a1;
+      font-size: 1.5em;
+    }
+    .example {
+      background: #fff;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 2px solid #bae6fd;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>How it works</h1>
+    <p style="text-align: center; font-size: 1.2em; color: #64748b;">The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.</p>
+    
+    <div class="step">
+      <span class="step-number">1</span>
+      <h2>Ask AI</h2>
+      <p>Ask Claude, ChatGPT, or any AI to generate a styled HTML note about your topic.</p>
+      <div class="example">
+        "Generate a styled HTML note about HSRP (Hot Standby Router Protocol) with commands and explanations. Make it visually appealing with CSS."
+      </div>
+    </div>
+    
+    <div class="step">
+      <span class="step-number">2</span>
+      <h2>Paste</h2>
+      <p>Create a new note in EduNoteLab and paste the HTML into the code editor.</p>
+      <div class="example">
+        Click "+ Project" → Add Section → Add Note → Paste your HTML in the left panel
+      </div>
+    </div>
+    
+    <div class="step">
+      <span class="step-number">3</span>
+      <h2>Preview & Learn</h2>
+      <p>Toggle split view and see your formatted page instantly! Edit, add tags, and save checkpoints as you learn.</p>
+      <div class="example">
+        Use the Split View button to see code and preview side-by-side. Make changes and watch them update in real-time!
+      </div>
+    </div>
+    
+    <h2 style="color: #6366f1; margin-top: 50px;">🚀 You're Ready!</h2>
+    <p>Start building your knowledge base. Create your first project and begin your learning journey!</p>
+  </div>
+</body>
+</html>`,
+                tags: ['tutorial', 'workflow', 'guide'],
+                versions: [],
+                translations: {},
+                language: 'html'
+              }
+            ]
+          }
+        ]
+      },
+      {
         id: 'p1',
         name: 'React Learning Path',
         sections: [
@@ -155,13 +452,13 @@ function App() {
   }, [data, debouncedSave]);
 
   useEffect(() => {
-    if (data.projects[0]?.sections[0]?.notes[0]) {
+    if (data.projects[0]?.sections[0]?.notes[0] && !selectedNote) {
       const firstNote = data.projects[0].sections[0].notes[0];
       setSelectedNote(firstNote);
       setExpandedProjects({ [data.projects[0].id]: true });
       setExpandedSections({ [data.projects[0].sections[0].id]: true });
     }
-  }, []);
+  }, [data]);
 
   const matchesSearch = (note) => {
     if (!searchQuery) return true;
@@ -499,6 +796,13 @@ function App() {
   const enterApp = () => {
     localStorage.setItem('edunotelab-visited', 'true');
     setShowLanding(false);
+    // Auto-select the Welcome note when entering the app
+    if (data.projects[0]?.sections[0]?.notes[0]) {
+      const welcomeNote = data.projects[0].sections[0].notes[0];
+      setSelectedNote(welcomeNote);
+      setExpandedProjects({ [data.projects[0].id]: true });
+      setExpandedSections({ [data.projects[0].sections[0].id]: true });
+    }
   };
 
   if (showLanding) {
