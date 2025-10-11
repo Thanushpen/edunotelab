@@ -854,14 +854,11 @@ if (showLanding) {
       <div
         className="landing-wrapper"
         style={{
-          minHeight: 'auto',
           background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
           color: '#f8fafc',
           fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
           position: 'relative',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          WebkitOverflowScrolling: 'touch',
+          minHeight: '100vh',
         }}
       >
           {/* Animated background elements */}
