@@ -805,156 +805,452 @@ function App() {
     }
   };
 
-  if (showLanding) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 text-gray-100">
-        <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-xl shadow-lg">
-                E
-              </div>
-              <span className="text-xl font-bold">EduNoteLab</span>
-            </div>
-            <button
-              onClick={enterApp}
-              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl"
-            >
-              Open App →
-            </button>
+  // REPLACE your entire "if (showLanding) { return (...) }" block with this code
+// Place this right before your main "return (" statement in App.jsx
+
+if (showLanding) {
+  return (
+    <div style={{ 
+      minHeight: '100vh',
+      background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
+      color: '#f8fafc',
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Animated background elements */}
+      <div style={{
+        position: 'absolute',
+        top: '-50%',
+        right: '-10%',
+        width: '800px',
+        height: '800px',
+        background: 'radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(80px)',
+        animation: 'float 20s ease-in-out infinite'
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        bottom: '-30%',
+        left: '-5%',
+        width: '600px',
+        height: '600px',
+        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(80px)',
+        animation: 'float 15s ease-in-out infinite reverse'
+      }}></div>
+
+      {/* Nav */}
+      <nav style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        backdropFilter: 'blur(20px) saturate(180%)',
+        background: 'rgba(10, 14, 39, 0.8)',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '16px 32px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 700 }}>
+            <div style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              display: 'grid',
+              placeItems: 'center',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.4)',
+              fontWeight: 800,
+              fontSize: '18px',
+              color: '#fff'
+            }}>E</div>
+            <span style={{ fontSize: '20px', background: 'linear-gradient(to right, #f8fafc, #e2e8f0)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>EduNoteLab</span>
           </div>
-        </header>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <a href="#features" style={{ 
+              padding: '10px 20px',
+              borderRadius: '8px',
+              color: '#e2e8f0',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: 500,
+              transition: 'all 0.2s',
+              cursor: 'pointer'
+            }} onMouseEnter={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.target.style.background = 'transparent'}>Features</a>
+            <a href="#how" style={{ 
+              padding: '10px 20px',
+              borderRadius: '8px',
+              color: '#e2e8f0',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: 500,
+              transition: 'all 0.2s',
+              cursor: 'pointer'
+            }} onMouseEnter={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.target.style.background = 'transparent'}>How it works</a>
+            <button onClick={enterApp} style={{ 
+              padding: '10px 24px',
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              color: '#fff',
+              border: 'none',
+              fontSize: '14px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.3s',
+              boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
+            }} onMouseEnter={e => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+            }} onMouseLeave={e => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+            }}>Open App →</button>
+          </div>
+        </div>
+      </nav>
 
-        <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-sm font-semibold mb-6">
-                🔒 Privacy-first • 🧠 AI-ready • ⚡ Live Preview
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Your AI-Powered <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Study Notebook</span>
-              </h1>
-              <p className="text-xl text-gray-400 mb-8">
-                Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context. All stored locally on your device.
-              </p>
-              <div className="flex gap-4 flex-wrap">
-                <button
-                  onClick={enterApp}
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl"
-                >
-                  Get Started Free
-                </button>
-                <a
-                  href="#how"
-                  className="px-8 py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg font-semibold text-lg transition-all"
-                >
-                  See How It Works
-                </a>
-              </div>
+      {/* Hero */}
+      <header style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 40px', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '60px', alignItems: 'center' }}>
+          <div style={{ animation: 'fadeInUp 0.8s ease-out' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1))',
+              border: '1px solid rgba(16, 185, 129, 0.2)',
+              fontSize: '13px',
+              fontWeight: 600,
+              marginBottom: '24px',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <span>🔒 Privacy-first</span>
+              <span style={{ color: '#4b5563' }}>•</span>
+              <span>🧠 AI-ready</span>
+              <span style={{ color: '#4b5563' }}>•</span>
+              <span>⚡ Live Preview</span>
             </div>
+            
+            <h1 style={{ 
+              fontSize: 'clamp(40px, 5.5vw, 68px)', 
+              lineHeight: 1.1, 
+              margin: '0 0 24px',
+              fontWeight: 800,
+              letterSpacing: '-0.02em'
+            }}>
+              Your AI-Powered <span style={{ 
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent'
+              }}>Study Notebook</span>
+            </h1>
+            
+            <p style={{ 
+              color: '#94a3b8', 
+              fontSize: '18px', 
+              lineHeight: 1.8,
+              marginBottom: '32px',
+              maxWidth: '90%'
+            }}>
+              Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context. All stored locally on your device.
+            </p>
+            
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <button onClick={enterApp} style={{ 
+                padding: '14px 32px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                color: '#fff',
+                border: 'none',
+                fontSize: '16px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
+              }} onMouseEnter={e => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+              }} onMouseLeave={e => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+              }}>Get Started Free</button>
+              
+              <a href="#how" style={{ 
+                padding: '14px 32px',
+                borderRadius: '10px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: '#e2e8f0',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: 600,
+                transition: 'all 0.3s',
+                background: 'rgba(255,255,255,0.03)',
+                backdropFilter: 'blur(10px)',
+                display: 'inline-block'
+              }} onMouseEnter={e => {
+                e.target.style.background = 'rgba(255,255,255,0.08)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+              }} onMouseLeave={e => {
+                e.target.style.background = 'rgba(255,255,255,0.03)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+              }}>See workflow →</a>
+            </div>
+          </div>
 
-            <div className="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 shadow-2xl">
-              <div className="bg-gray-900 px-4 py-3 border-b border-gray-700 flex items-center justify-between">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                </div>
-                <span className="text-xs text-gray-500">index.html — preview</span>
+          {/* Code preview mock */}
+          <div style={{ 
+            borderRadius: '16px', 
+            overflow: 'hidden', 
+            border: '1px solid rgba(255,255,255,0.1)', 
+            background: 'rgba(15, 23, 42, 0.6)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(20px)',
+            animation: 'fadeInUp 0.8s ease-out 0.2s both'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 20px',
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              background: 'rgba(0,0,0,0.2)'
+            }}>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
               </div>
-              <div className="p-4 bg-gray-900">
-                <pre className="text-sm text-gray-300 overflow-x-auto">
-                  <code>{`<section class="card">
+              <div style={{ color: '#64748b', fontSize: '12px', fontWeight: 500 }}>index.html</div>
+            </div>
+            <div style={{ padding: '20px', background: 'rgba(0, 0, 0, 0.3)' }}>
+              <pre style={{
+                margin: 0,
+                overflow: 'auto',
+                padding: '20px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 35, 0.95))',
+                border: '1px solid rgba(99, 102, 241, 0.2)',
+                color: '#e2e8f0',
+                fontSize: '13px',
+                lineHeight: 1.6,
+                fontFamily: 'ui-monospace, monospace'
+              }}><code>{`<section class="card">
   <h2>React Hooks Cheatsheet</h2>
   <ul>
     <li><strong>useState</strong> — local state</li>
     <li><strong>useEffect</strong> — side effects</li>
     <li><strong>useMemo</strong> — memoize values</li>
   </ul>
-</section>`}</code>
-                </pre>
-              </div>
+</section>`}</code></pre>
             </div>
           </div>
-        </section>
+        </div>
+      </header>
 
-        <section id="features" className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">What makes EduNoteLab different?</h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Built for technical learners: networking, systems, cloud, and frontend dev. Live split-view rendering keeps your notes structured and searchable.
-            </p>
-          </div>
+      {/* Features */}
+      <section id="features" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px', position: 'relative', zIndex: 1 }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', margin: '0 0 16px', fontWeight: 800, letterSpacing: '-0.02em' }}>
+            What makes EduNoteLab different?
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
+            Built for technical learners: networking, systems, cloud, and frontend dev. Live split-view rendering keeps your notes structured and searchable.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: '⧉', title: 'Split View Editor', desc: 'Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs.' },
-              { icon: '#', title: 'Projects → Sections → Notes', desc: 'Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.' },
-              { icon: '🔁', title: 'Auto-save & Checkpoints', desc: 'Every change saved locally. Create version snapshots you can roll back to anytime.' },
-              { icon: '🌐', title: 'Translate on Demand', desc: 'Optional API hook for translations and side-by-side viewing (via backend proxy).' },
-              { icon: '🔒', title: 'Privacy-First', desc: 'No backend required. Your data stays on your device. Export/import JSON at will.' },
-              { icon: '🤖', title: 'AI Context Export', desc: 'Export your complete learning context for Claude, ChatGPT, or any AI assistant.' }
-            ].map((feature, i) => (
-              <div key={i} className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 hover:border-indigo-600/50 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl mb-4 shadow-lg">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-400">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="how" className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How it works</h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 border border-indigo-700/50 rounded-2xl p-6">
-              <div className="text-4xl font-bold text-indigo-400 mb-3">1</div>
-              <h3 className="text-xl font-bold mb-2">Ask AI</h3>
-              <p className="text-gray-400">"Generate a styled HTML note about HSRP with commands & explanations."</p>
+        <div style={{ display: 'grid', gap: '24px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+          {[
+            { icon: '⧉', title: 'Split View Editor', desc: 'Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs.' },
+            { icon: '#', title: 'Projects → Sections → Notes', desc: 'Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.' },
+            { icon: '🔁', title: 'Auto-save & Checkpoints', desc: 'Every change saved locally. Create version snapshots you can roll back to anytime.' },
+            { icon: '🌐', title: 'Translate on Demand', desc: 'Optional API hook for translations and side-by-side viewing (via backend proxy).' },
+            { icon: '🔒', title: 'Privacy-First', desc: 'No backend required. Your data stays on your device. Export/import JSON at will.' },
+            { icon: '🤖', title: 'AI Context Export', desc: 'Export your complete learning context for Claude, ChatGPT, or any AI assistant.' }
+          ].map((feature, i) => (
+            <div key={i} style={{
+              background: 'rgba(30, 41, 59, 0.4)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '16px',
+              padding: '28px',
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s',
+              cursor: 'pointer'
+            }} onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(99, 102, 241, 0.3)';
+              e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+            }} onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '12px',
+                display: 'grid',
+                placeItems: 'center',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                fontSize: '24px',
+                marginBottom: '20px',
+                boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.4)'
+              }}>{feature.icon}</div>
+              <h3 style={{ margin: '0 0 12px', fontSize: '20px', fontWeight: 700 }}>{feature.title}</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{feature.desc}</p>
             </div>
-            <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-700/50 rounded-2xl p-6">
-              <div className="text-4xl font-bold text-purple-400 mb-3">2</div>
-              <h3 className="text-xl font-bold mb-2">Paste</h3>
-              <p className="text-gray-400">Create a note → paste the HTML into the code pane.</p>
-            </div>
-            <div className="bg-gradient-to-br from-pink-900/30 to-cyan-900/30 border border-pink-700/50 rounded-2xl p-6">
-              <div className="text-4xl font-bold text-cyan-400 mb-3">3</div>
-              <h3 className="text-xl font-bold mb-2">Preview</h3>
-              <p className="text-gray-400">Toggle split view and see your formatted page instantly.</p>
-            </div>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          <div className="text-center">
-            <button
-              onClick={enterApp}
-              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl"
-            >
-              Start Learning Now →
-            </button>
-          </div>
-        </section>
+      {/* How it works */}
+      <section id="how" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 120px', position: 'relative', zIndex: 1 }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', margin: '0 0 16px', fontWeight: 800, letterSpacing: '-0.02em' }}>
+            How it works
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
+            The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.
+          </p>
+        </div>
 
-        <footer className="border-t border-gray-800 mt-20">
-          <div className="max-w-7xl mx-auto px-6 py-8 flex flex-wrap items-center justify-between gap-4 text-gray-400">
-            <div>© {new Date().getFullYear()} EduNoteLab — Made for learners.</div>
-            <div className="flex gap-6">
-              <a href="#features" className="hover:text-indigo-400 transition-colors">Features</a>
-              <a href="#how" className="hover:text-indigo-400 transition-colors">How it works</a>
-              <button onClick={enterApp} className="hover:text-indigo-400 transition-colors font-semibold">Open App</button>
+        <div style={{ display: 'grid', gap: '24px', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', marginBottom: '48px' }}>
+          {[
+            { num: '1', title: 'Ask AI', desc: 'Generate a styled HTML note about HSRP with commands & explanations.' },
+            { num: '2', title: 'Paste', desc: 'Create a note → paste the HTML into the code pane.' },
+            { num: '3', title: 'Preview', desc: 'Toggle split view and see your formatted page instantly.' }
+          ].map((step, i) => (
+            <div key={i} style={{
+              background: 'rgba(30, 41, 59, 0.4)',
+              borderLeft: '4px solid #6366f1',
+              padding: '28px',
+              borderRadius: '12px',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <div style={{
+                fontSize: '36px',
+                fontWeight: 800,
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                marginBottom: '16px'
+              }}>{step.num}</div>
+              <h3 style={{ margin: '0 0 12px', fontSize: '22px', fontWeight: 700 }}>{step.title}</h3>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{step.desc}</p>
             </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button onClick={enterApp} style={{ 
+            padding: '14px 32px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#fff',
+            border: 'none',
+            fontSize: '16px',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all 0.3s',
+            boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
+          }} onMouseEnter={e => {
+            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+          }} onMouseLeave={e => {
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+          }}>Start Learning Now →</button>
+          
+          <a href="#features" style={{ 
+            padding: '14px 32px',
+            borderRadius: '10px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: '#e2e8f0',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: 600,
+            transition: 'all 0.3s',
+            background: 'rgba(255,255,255,0.03)',
+            backdropFilter: 'blur(10px)',
+            display: 'inline-block'
+          }} onMouseEnter={e => {
+            e.target.style.background = 'rgba(255,255,255,0.08)';
+            e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+          }} onMouseLeave={e => {
+            e.target.style.background = 'rgba(255,255,255,0.03)';
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+          }}>Explore Features</a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ 
+        maxWidth: '1280px', 
+        margin: '0 auto', 
+        padding: '32px 32px 48px', 
+        borderTop: '1px solid rgba(255,255,255,0.05)',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: '24px', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          color: '#64748b'
+        }}>
+          <div>© {new Date().getFullYear()} EduNoteLab — Made for learners.</div>
+          <div style={{ display: 'flex', gap: '24px' }}>
+            <a href="#features" style={{ color: '#94a3b8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>Features</a>
+            <a href="#how" style={{ color: '#94a3b8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>How it works</a>
+            <button onClick={enterApp} style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: '#94a3b8', 
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              padding: 0,
+              transition: 'color 0.2s'
+            }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>Open App</button>
           </div>
-        </footer>
-      </div>
-    );
-  }
+        </div>
+      </footer>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          33% { transform: translate(30px, -30px) rotate(5deg); }
+          66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
 
   return (
     <div className="flex h-screen bg-gray-900 text-gray-100" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
