@@ -847,449 +847,725 @@ function App() {
   // REPLACE your entire "if (showLanding) { return (...) }" block with this code
 // Place this right before your main "return (" statement in App.jsx
 
-if (showLanding) {
-  return (
-    <div style={{ 
-      minHeight: '100vh',
-      background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
-      color: '#f8fafc',
-      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      {/* Animated background elements */}
-      <div style={{
-        position: 'absolute',
-        top: '-50%',
-        right: '-10%',
-        width: '800px',
-        height: '800px',
-        background: 'radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(80px)',
-        animation: 'float 20s ease-in-out infinite'
-      }}></div>
-      <div style={{
-        position: 'absolute',
-        bottom: '-30%',
-        left: '-5%',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(80px)',
-        animation: 'float 15s ease-in-out infinite reverse'
-      }}></div>
 
-      {/* Nav */}
-      <nav style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        backdropFilter: 'blur(20px) saturate(180%)',
-        background: 'rgba(10, 14, 39, 0.8)',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '16px 32px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 700 }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '10px',
-              display: 'grid',
-              placeItems: 'center',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-              boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.4)',
-              fontWeight: 800,
-              fontSize: '18px',
-              color: '#fff'
-            }}>E</div>
-            <span style={{ fontSize: '20px', background: 'linear-gradient(to right, #f8fafc, #e2e8f0)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>EduNoteLab</span>
-          </div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <a href="#features" style={{ 
-              padding: '10px 20px',
-              borderRadius: '8px',
-              color: '#e2e8f0',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 500,
-              transition: 'all 0.2s',
-              cursor: 'pointer'
-            }} onMouseEnter={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.target.style.background = 'transparent'}>Features</a>
-            <a href="#how" style={{ 
-              padding: '10px 20px',
-              borderRadius: '8px',
-              color: '#e2e8f0',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 500,
-              transition: 'all 0.2s',
-              cursor: 'pointer'
-            }} onMouseEnter={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.target.style.background = 'transparent'}>How it works</a>
-            <button onClick={enterApp} style={{ 
-              padding: '10px 24px',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-              color: '#fff',
-              border: 'none',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
-            }} onMouseEnter={e => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
-            }} onMouseLeave={e => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
-            }}>Open App →</button>
-          </div>
-        </div>
-      </nav>
+  if (showLanding) {
+    return (
+      <>
+        <div
+          className="landing-wrapper"
+          style={{
+            minHeight: 'auto',
+            background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
+            color: '#f8fafc',
+            fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
+            position: 'relative',
+          }}
+        >
+          {/* Animated background elements */}
+          <div
+            className="animated-bg-circle-1"
+            style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-10%',
+              width: '800px',
+              height: '800px',
+              background: 'radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%)',
+              borderRadius: '50%',
+              filter: 'blur(80px)',
+              animation: 'float 20s ease-in-out infinite',
+            }}
+          ></div>
+          <div
+            className="animated-bg-circle-2"
+            style={{
+              position: 'absolute',
+              bottom: '-30%',
+              left: '-5%',
+              width: '600px',
+              height: '600px',
+              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
+              borderRadius: '50%',
+              filter: 'blur(80px)',
+              animation: 'float 15s ease-in-out infinite reverse',
+            }}
+          ></div>
 
-      {/* Hero */}
-      <header style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 40px', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '60px', alignItems: 'center' }}>
-          <div style={{ animation: 'fadeInUp 0.8s ease-out' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 16px',
-              borderRadius: '20px',
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1))',
-              border: '1px solid rgba(16, 185, 129, 0.2)',
-              fontSize: '13px',
-              fontWeight: 600,
-              marginBottom: '24px',
-              backdropFilter: 'blur(10px)'
-            }}>
-              <span>🔒 Privacy-first</span>
-              <span style={{ color: '#4b5563' }}>•</span>
-              <span>🧠 AI-ready</span>
-              <span style={{ color: '#4b5563' }}>•</span>
-              <span>⚡ Live Preview</span>
-            </div>
-            
-            <h1 style={{ 
-              fontSize: 'clamp(40px, 5.5vw, 68px)', 
-              lineHeight: 1.1, 
-              margin: '0 0 24px',
-              fontWeight: 800,
-              letterSpacing: '-0.02em'
-            }}>
-              Your AI-Powered <span style={{ 
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent'
-              }}>Study Notebook</span>
-            </h1>
-            
-            <p style={{ 
-              color: '#94a3b8', 
-              fontSize: '18px', 
-              lineHeight: 1.8,
-              marginBottom: '32px',
-              maxWidth: '90%'
-            }}>
-              Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context. All stored locally on your device.
-            </p>
-            
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <button onClick={enterApp} style={{ 
-                padding: '14px 32px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                color: '#fff',
-                border: 'none',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.3s',
-                boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
-              }} onMouseEnter={e => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
-              }} onMouseLeave={e => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
-              }}>Get Started Free</button>
-              
-              <a href="#how" style={{ 
-                padding: '14px 32px',
-                borderRadius: '10px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: '#e2e8f0',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: 600,
-                transition: 'all 0.3s',
-                background: 'rgba(255,255,255,0.03)',
-                backdropFilter: 'blur(10px)',
-                display: 'inline-block'
-              }} onMouseEnter={e => {
-                e.target.style.background = 'rgba(255,255,255,0.08)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-              }} onMouseLeave={e => {
-                e.target.style.background = 'rgba(255,255,255,0.03)';
-                e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-              }}>See workflow →</a>
-            </div>
-          </div>
-
-          {/* Code preview mock */}
-          <div style={{ 
-            borderRadius: '16px', 
-            overflow: 'hidden', 
-            border: '1px solid rgba(255,255,255,0.1)', 
-            background: 'rgba(15, 23, 42, 0.6)',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(20px)',
-            animation: 'fadeInUp 0.8s ease-out 0.2s both'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '14px 20px',
-              borderBottom: '1px solid rgba(255,255,255,0.05)',
-              background: 'rgba(0,0,0,0.2)'
-            }}>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}></div>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
+          {/* Nav */}
+          <nav
+            style={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 50,
+              backdropFilter: 'blur(20px) saturate(180%)',
+              background: 'rgba(10, 14, 39, 0.8)',
+              borderBottom: '1px solid rgba(255,255,255,0.1)',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <div
+              className="nav-container"
+              style={{
+                maxWidth: '1280px',
+                margin: '0 auto',
+                padding: '16px 32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '16px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 700 }}>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    display: 'grid',
+                    placeItems: 'center',
+                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                    boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.4)',
+                    fontWeight: 800,
+                    fontSize: '18px',
+                    color: '#fff',
+                  }}
+                >
+                  E
+                </div>
+                <span
+                  className="brand-name"
+                  style={{
+                    fontSize: '20px',
+                    background: 'linear-gradient(to right, #f8fafc, #e2e8f0)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  EduNoteLab
+                </span>
               </div>
-              <div style={{ color: '#64748b', fontSize: '12px', fontWeight: 500 }}>index.html</div>
+              <div className="nav-links" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <a
+                  href="#features"
+                  className="nav-link"
+                  style={{
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    color: '#e2e8f0',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    transition: 'all 0.2s',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => (e.target.style.background = 'rgba(255,255,255,0.05)')}
+                  onMouseLeave={(e) => (e.target.style.background = 'transparent')}
+                >
+                  Features
+                </a>
+                <a
+                  href="#how"
+                  className="nav-link"
+                  style={{
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    color: '#e2e8f0',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    transition: 'all 0.2s',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => (e.target.style.background = 'rgba(255,255,255,0.05)')}
+                  onMouseLeave={(e) => (e.target.style.background = 'transparent')}
+                >
+                  How it works
+                </a>
+                <button
+                  onClick={enterApp}
+                  style={{
+                    padding: '10px 24px',
+                    borderRadius: '8px',
+                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                    color: '#fff',
+                    border: 'none',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                    boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)',
+                    whiteSpace: 'nowrap',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+                  }}
+                >
+                  Open App →
+                </button>
+              </div>
             </div>
-            <div style={{ padding: '20px', background: 'rgba(0, 0, 0, 0.3)' }}>
-              <pre style={{
-                margin: 0,
-                overflow: 'auto',
-                padding: '20px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 35, 0.95))',
-                border: '1px solid rgba(99, 102, 241, 0.2)',
-                color: '#e2e8f0',
-                fontSize: '13px',
-                lineHeight: 1.6,
-                fontFamily: 'ui-monospace, monospace'
-              }}><code>{`<section class="card">
+          </nav>
+
+          {/* Hero */}
+          <header
+            className="hero-section"
+            style={{
+              maxWidth: '1280px',
+              margin: '0 auto',
+              padding: '80px 32px 40px',
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '60px', alignItems: 'center' }}>
+              <div style={{ animation: 'fadeInUp 0.8s ease-out' }}>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '6px 16px',
+                    borderRadius: '20px',
+                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1))',
+                    border: '1px solid rgba(16, 185, 129, 0.2)',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    marginBottom: '24px',
+                    backdropFilter: 'blur(10px)',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <span>🔒 Privacy-first</span>
+                  <span style={{ color: '#4b5563' }}>•</span>
+                  <span>🧠 AI-ready</span>
+                  <span style={{ color: '#4b5563' }}>•</span>
+                  <span>⚡ Live Preview</span>
+                </div>
+
+                <h1
+                  style={{
+                    fontSize: 'clamp(32px, 5.5vw, 68px)',
+                    lineHeight: 1.1,
+                    margin: '0 0 24px',
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  Your AI-Powered{' '}
+                  <span
+                    style={{
+                      background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899)',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
+                      color: 'transparent',
+                    }}
+                  >
+                    Study Notebook
+                  </span>
+                </h1>
+
+                <p
+                  style={{
+                    color: '#94a3b8',
+                    fontSize: '18px',
+                    lineHeight: 1.8,
+                    marginBottom: '32px',
+                    maxWidth: '90%',
+                  }}
+                >
+                  Paste HTML or code, see instant previews, organize by Projects → Sections → Notes, and export AI-ready context. All stored locally on your device.
+                </p>
+
+                <div className="hero-buttons" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={enterApp}
+                    style={{
+                      padding: '14px 32px',
+                      borderRadius: '10px',
+                      background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                      color: '#fff',
+                      border: 'none',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+                    }}
+                  >
+                    Get Started Free
+                  </button>
+
+                  <a
+                    href="#how"
+                    style={{
+                      padding: '14px 32px',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      color: '#e2e8f0',
+                      textDecoration: 'none',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      transition: 'all 0.3s',
+                      background: 'rgba(255,255,255,0.03)',
+                      backdropFilter: 'blur(10px)',
+                      display: 'inline-block',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(255,255,255,0.08)';
+                      e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'rgba(255,255,255,0.03)';
+                      e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+                    }}
+                  >
+                    See workflow →
+                  </a>
+                </div>
+              </div>
+
+              {/* Code preview mock */}
+              <div
+                className="code-preview"
+                style={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'rgba(15, 23, 42, 0.6)',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                  backdropFilter: 'blur(20px)',
+                  animation: 'fadeInUp 0.8s ease-out 0.2s both',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '14px 20px',
+                    borderBottom: '1px solid rgba(255,255,255,0.05)',
+                    background: 'rgba(0,0,0,0.2)',
+                  }}
+                >
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
+                  </div>
+                  <div style={{ color: '#64748b', fontSize: '12px', fontWeight: 500 }}>index.html</div>
+                </div>
+                <div style={{ padding: '20px', background: 'rgba(0, 0, 0, 0.3)' }}>
+                  <pre
+                    style={{
+                      margin: 0,
+                      overflow: 'auto',
+                      padding: '20px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 35, 0.95))',
+                      border: '1px solid rgba(99, 102, 241, 0.2)',
+                      color: '#e2e8f0',
+                      fontSize: '13px',
+                      lineHeight: 1.6,
+                      fontFamily: 'ui-monospace, monospace',
+                    }}
+                  >
+                    <code>{`<section class="card">
   <h2>React Hooks Cheatsheet</h2>
   <ul>
     <li><strong>useState</strong> — local state</li>
     <li><strong>useEffect</strong> — side effects</li>
     <li><strong>useMemo</strong> — memoize values</li>
   </ul>
-</section>`}</code></pre>
+</section>`}</code>
+                  </pre>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </header>
+          </header>
 
-      {/* Features */}
-      <section id="features" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px', position: 'relative', zIndex: 1 }}>
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', margin: '0 0 16px', fontWeight: 800, letterSpacing: '-0.02em' }}>
-            What makes EduNoteLab different?
-          </h2>
-          <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
-            Built for technical learners: networking, systems, cloud, and frontend dev. Live split-view rendering keeps your notes structured and searchable.
-          </p>
-        </div>
+          {/* Features */}
+          <section
+            id="features"
+            style={{
+              maxWidth: '1280px',
+              margin: '0 auto',
+              padding: '80px 32px',
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+              <h2
+                style={{
+                  fontSize: 'clamp(28px, 4vw, 48px)',
+                  margin: '0 0 16px',
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                What makes EduNoteLab different?
+              </h2>
+              <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
+                Built for technical learners: networking, systems, cloud, and frontend dev. Live split-view rendering keeps your notes structured and searchable.
+              </p>
+            </div>
 
-        <div style={{ display: 'grid', gap: '24px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-          {[
-            { icon: '⧉', title: 'Split View Editor', desc: 'Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs.' },
-            { icon: '#', title: 'Projects → Sections → Notes', desc: 'Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.' },
-            { icon: '🔁', title: 'Auto-save & Checkpoints', desc: 'Every change saved locally. Create version snapshots you can roll back to anytime.' },
-            { icon: '🌐', title: 'Translate on Demand', desc: 'Optional API hook for translations and side-by-side viewing (via backend proxy).' },
-            { icon: '🔒', title: 'Privacy-First', desc: 'No backend required. Your data stays on your device. Export/import JSON at will.' },
-            { icon: '🤖', title: 'AI Context Export', desc: 'Export your complete learning context for Claude, ChatGPT, or any AI assistant.' }
-          ].map((feature, i) => (
-            <div key={i} style={{
-              background: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '16px',
-              padding: '28px',
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s',
-              cursor: 'pointer'
-            }} onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(99, 102, 241, 0.3)';
-              e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
-            }} onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '12px',
+            <div className="features-grid" style={{ display: 'grid', gap: '24px', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+              {[
+                {
+                  icon: '⧉',
+                  title: 'Split View Editor',
+                  desc: 'Code on the left with Monaco syntax highlighting, live preview on the right — perfect for HTML/JS labs.',
+                },
+                {
+                  icon: '#',
+                  title: 'Projects → Sections → Notes',
+                  desc: 'Keep big topics tidy. Hierarchical structure with tags and full-text search across everything.',
+                },
+                {
+                  icon: '🔁',
+                  title: 'Auto-save & Checkpoints',
+                  desc: 'Every change saved locally. Create version snapshots you can roll back to anytime.',
+                },
+                {
+                  icon: '🌐',
+                  title: 'Translate on Demand',
+                  desc: 'Optional API hook for translations and side-by-side viewing (via backend proxy).',
+                },
+                {
+                  icon: '🔒',
+                  title: 'Privacy-First',
+                  desc: 'No backend required. Your data stays on your device. Export/import JSON at will.',
+                },
+                {
+                  icon: '🤖',
+                  title: 'AI Context Export',
+                  desc: 'Export your complete learning context for Claude, ChatGPT, or any AI assistant.',
+                },
+              ].map((feature, i) => (
+                <div
+                  key={i}
+                  className="feature-card"
+                  style={{
+                    background: 'rgba(30, 41, 59, 0.4)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '16px',
+                    padding: '28px',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(99, 102, 241, 0.3)';
+                    e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      display: 'grid',
+                      placeItems: 'center',
+                      background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                      fontSize: '24px',
+                      marginBottom: '20px',
+                      boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.4)',
+                    }}
+                  >
+                    {feature.icon}
+                  </div>
+                  <h3 style={{ margin: '0 0 12px', fontSize: '20px', fontWeight: 700 }}>{feature.title}</h3>
+                  <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* How it works */}
+          <section
+            id="how"
+            style={{
+              maxWidth: '1280px',
+              margin: '0 auto',
+              padding: '80px 32px 120px',
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+              <h2
+                style={{
+                  fontSize: 'clamp(28px, 4vw, 48px)',
+                  margin: '0 0 16px',
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                How it works
+              </h2>
+              <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
+                The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.
+              </p>
+            </div>
+
+            <div
+              className="steps-grid"
+              style={{
                 display: 'grid',
-                placeItems: 'center',
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                fontSize: '24px',
-                marginBottom: '20px',
-                boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.4)'
-              }}>{feature.icon}</div>
-              <h3 style={{ margin: '0 0 12px', fontSize: '20px', fontWeight: 700 }}>{feature.title}</h3>
-              <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{feature.desc}</p>
+                gap: '24px',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                marginBottom: '48px',
+              }}
+            >
+              {[
+                {
+                  num: '1',
+                  title: 'Ask AI',
+                  desc: 'Generate a styled HTML note about HSRP with commands & explanations.',
+                },
+                {
+                  num: '2',
+                  title: 'Paste',
+                  desc: 'Create a note → paste the HTML into the code pane.',
+                },
+                {
+                  num: '3',
+                  title: 'Preview',
+                  desc: 'Toggle split view and see your formatted page instantly.',
+                },
+              ].map((step, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: 'rgba(30, 41, 59, 0.4)',
+                    borderLeft: '4px solid #6366f1',
+                    padding: '28px',
+                    borderRadius: '12px',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '36px',
+                      fontWeight: 800,
+                      background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
+                      color: 'transparent',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {step.num}
+                  </div>
+                  <h3 style={{ margin: '0 0 12px', fontSize: '22px', fontWeight: 700 }}>{step.title}</h3>
+                  <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{step.desc}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* How it works */}
-      <section id="how" style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 120px', position: 'relative', zIndex: 1 }}>
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', margin: '0 0 16px', fontWeight: 800, letterSpacing: '-0.02em' }}>
-            How it works
-          </h2>
-          <p style={{ color: '#94a3b8', fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
-            The "Magic Copy-Paste" workflow with AI makes beautiful notes in seconds.
-          </p>
-        </div>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={enterApp}
+                style={{
+                  padding: '14px 32px',
+                  borderRadius: '10px',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  color: '#fff',
+                  border: 'none',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                  boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
+                }}
+              >
+                Start Learning Now →
+              </button>
 
-        <div style={{ display: 'grid', gap: '24px', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', marginBottom: '48px' }}>
-          {[
-            { num: '1', title: 'Ask AI', desc: 'Generate a styled HTML note about HSRP with commands & explanations.' },
-            { num: '2', title: 'Paste', desc: 'Create a note → paste the HTML into the code pane.' },
-            { num: '3', title: 'Preview', desc: 'Toggle split view and see your formatted page instantly.' }
-          ].map((step, i) => (
-            <div key={i} style={{
-              background: 'rgba(30, 41, 59, 0.4)',
-              borderLeft: '4px solid #6366f1',
-              padding: '28px',
-              borderRadius: '12px',
-              backdropFilter: 'blur(10px)'
-            }}>
-              <div style={{
-                fontSize: '36px',
-                fontWeight: 800,
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                marginBottom: '16px'
-              }}>{step.num}</div>
-              <h3 style={{ margin: '0 0 12px', fontSize: '22px', fontWeight: 700 }}>{step.title}</h3>
-              <p style={{ color: '#94a3b8', margin: 0, fontSize: '15px', lineHeight: 1.7 }}>{step.desc}</p>
+              <a
+                href="#features"
+                style={{
+                  padding: '14px 32px',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: '#e2e8f0',
+                  textDecoration: 'none',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  transition: 'all 0.3s',
+                  background: 'rgba(255,255,255,0.03)',
+                  backdropFilter: 'blur(10px)',
+                  display: 'inline-block',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'rgba(255,255,255,0.08)';
+                  e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'rgba(255,255,255,0.03)';
+                  e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+                }}
+              >
+                Explore Features
+              </a>
             </div>
-          ))}
+          </section>
         </div>
 
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button onClick={enterApp} style={{ 
-            padding: '14px 32px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            color: '#fff',
-            border: 'none',
-            fontSize: '16px',
-            fontWeight: 600,
-            cursor: 'pointer',
-            transition: 'all 0.3s',
-            boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.5)'
-          }} onMouseEnter={e => {
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 15px 30px -5px rgba(99, 102, 241, 0.6)';
-          }} onMouseLeave={e => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 10px 25px -5px rgba(99, 102, 241, 0.5)';
-          }}>Start Learning Now →</button>
+        {/* CSS Animations and Mobile Responsive Styles */}
+        <style>{`
+          @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+          }
           
-          <a href="#features" style={{ 
-            padding: '14px 32px',
-            borderRadius: '10px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: '#e2e8f0',
-            textDecoration: 'none',
-            fontSize: '16px',
-            fontWeight: 600,
-            transition: 'all 0.3s',
-            background: 'rgba(255,255,255,0.03)',
-            backdropFilter: 'blur(10px)',
-            display: 'inline-block'
-          }} onMouseEnter={e => {
-            e.target.style.background = 'rgba(255,255,255,0.08)';
-            e.target.style.borderColor = 'rgba(255,255,255,0.2)';
-          }} onMouseLeave={e => {
-            e.target.style.background = 'rgba(255,255,255,0.03)';
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-          }}>Explore Features</a>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer style={{ 
-        maxWidth: '1280px', 
-        margin: '0 auto', 
-        padding: '32px 32px 48px', 
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        position: 'relative',
-        zIndex: 1
-      }}>
-        <div style={{ 
-          display: 'flex', 
-          flexWrap: 'wrap', 
-          gap: '24px', 
-          alignItems: 'center', 
-          justifyContent: 'space-between',
-          color: '#64748b'
-        }}>
-          <div>© {new Date().getFullYear()} EduNoteLab — Made for learners.</div>
-          <div style={{ display: 'flex', gap: '24px' }}>
-            <a href="#features" style={{ color: '#94a3b8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>Features</a>
-            <a href="#how" style={{ color: '#94a3b8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>How it works</a>
-            <button onClick={enterApp} style={{ 
-              background: 'none', 
-              border: 'none', 
-              color: '#94a3b8', 
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-              padding: 0,
-              transition: 'color 0.2s'
-            }} onMouseEnter={e => e.target.style.color = '#e2e8f0'} onMouseLeave={e => e.target.style.color = '#94a3b8'}>Open App</button>
-          </div>
-        </div>
-      </footer>
-
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(30px, -30px) rotate(5deg); }
-          66% { transform: translate(-20px, 20px) rotate(-5deg); }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+
+          /* Mobile Responsive Styles */
+          @media (max-width: 768px) {
+            .landing-wrapper {
+              padding-bottom: 60px;
+            }
+
+            .animated-bg-circle-1,
+            .animated-bg-circle-2 {
+              display: none;
+            }
+
+            .nav-container {
+              padding: 12px 16px !important;
+              flex-wrap: wrap;
+            }
+
+            .brand-name {
+              font-size: 18px !important;
+            }
+
+            .nav-links {
+              width: 100%;
+              justify-content: center;
+              margin-top: 8px;
+            }
+
+            .nav-link {
+              padding: 8px 12px !important;
+              font-size: 13px !important;
+            }
+
+            .hero-section {
+              padding: 40px 20px !important;
+            }
+
+            .hero-grid {
+              grid-template-columns: 1fr !important;
+              gap: 40px !important;
+            }
+
+            .hero-buttons {
+              flex-direction: column;
+              align-items: stretch;
+            }
+
+            .hero-buttons button,
+            .hero-buttons a {
+              text-align: center;
+              width: 100%;
+            }
+
+            .code-preview {
+              order: -1;
+            }
+
+            .features-grid {
+              grid-template-columns: 1fr !important;
+              padding: 0 20px;
+            }
+
+            .steps-grid {
+              grid-template-columns: 1fr !important;
+              padding: 0 20px;
+            }
+
+            .feature-card {
+              padding: 20px !important;
+            }
+
+            h1 {
+              font-size: clamp(28px, 8vw, 48px) !important;
+            }
+
+            h2 {
+              font-size: clamp(24px, 6vw, 36px) !important;
+            }
+
+            p {
+              font-size: 16px !important;
+            }
           }
-        }
-      `}</style>
-    </div>
-  );
-}
+
+          @media (max-width: 480px) {
+            .nav-links {
+              gap: 6px !important;
+            }
+
+            .nav-link {
+              display: none;
+            }
+
+            .hero-section {
+              padding: 30px 16px !important;
+            }
+
+            .features-grid,
+            .steps-grid {
+              gap: 16px !important;
+            }
+          }
+        `}</style>
+      </>
+    );
+  }
+
+
 
   return (
     <div className="flex h-screen bg-gray-900 text-gray-100" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
