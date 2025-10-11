@@ -852,15 +852,22 @@ if (showLanding) {
   return (
     <>
       <div
-        className="landing-wrapper"
-        style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
-          color: '#f8fafc',
-          fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
-          position: 'relative',
-          minHeight: '100vh',
-        }}
-      >
+  className="landing-wrapper"
+  style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    WebkitOverflowScrolling: 'touch',
+    background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), #0a0e27',
+    color: '#f8fafc',
+    fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial',
+    zIndex: 9999,
+  }}
+>
           {/* Animated background elements */}
           <div
             className="animated-bg-circle-1"
